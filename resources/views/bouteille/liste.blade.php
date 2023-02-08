@@ -48,6 +48,7 @@
 
 
         {{-- Section filtre --}}
+
         <div class="mb-3 flex justify-center space-x-2">
             {{--Par type--}}
             <button class="text-white bg-slate-700 font-medium rounded text-sm p-2 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown-type">Type<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
@@ -83,6 +84,11 @@
 
         {{--Par préférence--}}
         <button class="text-white bg-slate-700 font-medium rounded text-sm p-2 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown-note">Note<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+
+        <div class="mb-3 filtre">
+        {{--Par type--}}
+        <button class="text-white bg-slate-700 font-medium rounded text-sm p-2 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown-type">Type<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+
         <!-- Dropdown menu -->
         <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown-note">
 
@@ -108,6 +114,14 @@
 
 
     </div>
+
+
+    <div class="grow text-right">
+        <a class="ml-3 text-white bg-neutral-600 font-medium rounded text-lg px-3 py-2 text-center inline-flex items-center" href="{{ route('bouteille.liste', ['id' => $cellier->id] ) }}"><i class="fa-solid fa-xmark"></i></a>
+    </div>
+
+</div>
+
 
 
     <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>

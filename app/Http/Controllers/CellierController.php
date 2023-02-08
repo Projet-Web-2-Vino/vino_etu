@@ -18,6 +18,8 @@ class CellierController extends Controller
     */
     public function index(Request $request)
     {
+       
+      if(Auth::check()){ 
        $titre = 'cellier' ;
        $field = User::findOrFail(Auth::id());
        if(Auth::check()){
@@ -36,7 +38,10 @@ class CellierController extends Controller
             return redirect('/login');
         }
         
+    }else{
+        return redirect('/login');
     }
+}
 
 
     /*

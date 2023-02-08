@@ -38,7 +38,7 @@
             @if ($celliers)
                 @foreach ($celliers as $info)
 
-                    <div class="vinoCarte cellierCarte sm:w-full md:w-auto m-2 border border-gray-200 rounded-lg shadow">   
+                    <div class="vinoCarte cellierCarte  m-2 border border-gray-200 rounded-lg shadow">   
                         
 
 
@@ -160,7 +160,7 @@
             console.log(event.target.parentElement.parentElement);
             //console.log(trigger.dataset.modal)
             const modal = document.getElementById(trigger.dataset.modal);
-            //console.log(modal);
+            console.log(modal);
             modal.classList.add("open");
             const exits = modal.querySelectorAll(".modal-exit");
            // console.log(exits);
