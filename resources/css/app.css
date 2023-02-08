@@ -403,6 +403,21 @@ nav a span{
 }
 
 
+/*nav filtrer*/
+.filtre{
+  display:flex;
+  flex-wrap:wrap;
+  gap:3px;
+}
+
+/* Mediaqueries filtre */
+@media screen and (max-width: 350px) {
+  .filtre{
+    flex-direction: column-reverse;
+  }
+  
+}
+
 
 .vinoCarte{
   position:relative;
