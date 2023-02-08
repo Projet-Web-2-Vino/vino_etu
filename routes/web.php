@@ -87,10 +87,9 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
     Route::get('/bouteille/{id}', [BouteilleController::class, 'index'])
         ->name('bouteille.liste');
 
-    Route::post('/bouteille/{id}', [BouteilleController::class, 'quantite'])
-    ->name('bouteille.quantite');
-    Route::post('/bouteille/{id}', [BouteilleController::class, 'note'])
-    ->name('bouteille.note');
+    Route::post('/bouteille/{id}', [BouteilleController::class, 'updateBouteille'])
+    ->name('bouteille.updateBouteille');
+   
 
     // Ajout d'une bouteille
     Route::get('/bouteille/nouveau/{id}', [BouteilleController::class, 'nouveau'])
@@ -121,11 +120,6 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
 
 });//prevent back middleware
 
- //Section page d'accueil
- Route::get('/', AcceuilController::class)->name('acceuil');
-
-// Route Fallback pour les routes non existantes Page Erreur 404
-Route::fallback(FallbackController::class);
 
 
 require __DIR__.'/auth.php';

@@ -415,7 +415,7 @@ nav a span{
   .filtre{
     flex-direction: column-reverse;
   }
-  
+
 }
 
 
@@ -518,6 +518,11 @@ a{
   line-height: 1em;
 }
 
+
+/*quantite*/
+.btnModif i{
+  pointer-events: none;
+}
 
 /*system de note ref:https://codepen.io/knyttneve/pen/EBNqPN */
 .note {
