@@ -160,7 +160,7 @@
             console.log(event.target.parentElement.parentElement);
             //console.log(trigger.dataset.modal)
             const modal = document.getElementById(trigger.dataset.modal);
-            //console.log(modal);
+            console.log(modal);
             modal.classList.add("open");
             const exits = modal.querySelectorAll(".modal-exit");
            // console.log(exits);

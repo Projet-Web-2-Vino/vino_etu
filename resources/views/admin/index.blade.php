@@ -119,8 +119,8 @@
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                <!-- zone delete usager-->
                                                 <div class="flex items-center">
-                                                 <!-- zone delete usager-->
                                                 <form action="{{ route('admin.supprime', ['id' => $info->id]) }}" method="POST">
                                                     @csrf
                                                     <button data-modal="modal-{{$info->id}}"><i class="fa-solid fa-trash"></i></button>
@@ -152,14 +152,16 @@
                     </div>-->
 
                          <!-- Modal copy dans admin-->
-                        <div class="modal" id="modal-{{$info->id}}">
+                        <!-- Modal -->
+                    @foreach ($users as  $info)
+                    @if ($info->id > 1)
+                    <div class="modal" id="modal-{{$info->id}}">
                         <div class="modal-bg modal-exit"></div>
                         <div class="modal-container">
                             <button data-action="no-supprimer" class="modal-close modal-exit"><i class="fa fa-window-close" aria-hidden="true"></i></button>
                             <div><i class="block text-amber-600 mx-auto fa-solid fa-triangle-exclamation text-5xl"></i></div>
                             <h1 class="text-2xl font-bold">Voulez-vous supprimer</h1>
                             <h2 class="font-semibold uppercase text-2xl text-amber-800">{{$info->name}}</h2>
-
                         <div class="flex justify-end space-x-1">
                             <button class="bg-red-900 text-white font-bold py-2 px-4 rounded modal-exit" data-action="supprimer" class="modal-exit">Supprimer</button>
                             <button class="bg-slate-900 text-white font-bold py-2 px-4 rounded modal-exit" data-action="no-supprimer" class="modal-exit">Non</button>
@@ -168,6 +170,8 @@
                         </div>
                         </div>
                     </div>
+                    @endif
+                    @endforeach
                     </div>
                 </div>
         </div>
@@ -205,13 +209,15 @@
         const modals = document.querySelectorAll("[data-modal]");
 
         modals.forEach(function (trigger) {
+            console.log(trigger);
         trigger.addEventListener("click", function (event) {
             event.preventDefault();
             let form = event.target.parentElement.parentElement
             console.log(event.target.parentElement.parentElement);
-            //console.log(trigger.dataset.modal)
+            console.log(trigger.dataset.modal) 
             const modal = document.getElementById(trigger.dataset.modal);
-            //console.log(modal);
+            
+            console.log(modal);
             modal.classList.add("open");
             const exits = modal.querySelectorAll(".modal-exit");
            // console.log(exits);
