@@ -38,13 +38,13 @@
           <div class="col-xs-12 explore">
 
             
-            <a href="register" class="appbtn w-80 bg-red-800 hover:bg-red-300 text-white font-regular py-2 px-4 rounded">
-                Inscrivez-vous
+            <a href="register" class="appbtn w-full md:w-1/2 lg:w-1/4 bg-red-800 text-white font-regular text-lg uppercase py-2 px-4 rounded">
+                Inscription
               </a>
           </div>
           <div class="col-xs-12 explore">
 
-            <a href="/login" class="appbtn w-80 bg-red-800 hover:bg-red-300 text-white font-regular py-2 px-4 rounded">
+            <a href="/login" class="appbtn w-full md:w-1/2 lg:w-1/4 bg-red-800 text-white font-regular text-lg uppercase py-2 px-4 rounded">
 
                 Connexion
               </a>
@@ -52,13 +52,7 @@
 
             
           </div>
-          <div class=" py-12 col-xs-12 explore">
-            <!--
-            <button class="w-80 bg-transparent hover:bg-red-300 text-white font-semibold hover:text-white py-2 px-4 border border-white hover:border-transparent rounded">
-                EXPLORER LES CELLIERS
-              </button>
-            -->
-        </div>
+        
 
 
 

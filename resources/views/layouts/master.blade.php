@@ -34,8 +34,11 @@
   @else
   <div class="w-full bg-red-900 ">
     <div class="text-center py-4">
+      @if(auth()->check())
       <a href="/cellier" class="text-lg font-semibold uppercase  text-white">L'atelier a vin </a>
-      
+      @else
+      <a href="/" class="text-lg font-semibold uppercase  text-white">L'atelier a vin </a>
+      @endif
     </div>
 </div>
 
@@ -45,4 +48,3 @@
   @yield('content')
 
 </html>
-

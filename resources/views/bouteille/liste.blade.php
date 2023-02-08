@@ -4,9 +4,9 @@
 
 
  <!-- Scripts Modal et Ajout Quantiter Bouteille-->
- @vite(['resources/js/listeBouteille.js'])
+ {{-- @vite(['resources/js/listeBouteille.js']) --}}
 
-    <div class='container mb-20 max-w-full'>
+    <div class='container mb-30 max-w-full'>
     {{-- Section header --}}
         <article class="zoneRouge mb-5 rounded-md bg-gradient-to-r from-red-900 via-red-800 to-red-600 p-5 sm:py-8">
         <h1 class="titreZoneRouge  text-6xl font-bold text-white ">
@@ -17,7 +17,7 @@
         </article>
 
 
-        
+
 
 
 
@@ -33,7 +33,7 @@
         @endif
 
 
-    
+
         @if (count($bouteilles) == 0)
         <h3 class="titreSecondaire font-semibold">Bienvenue!</h3>
         <p class="mb-2">Veuillez ajouter votre première bouteille</p>
@@ -48,74 +48,72 @@
 
 
         {{-- Section filtre --}}
-        <div class="mb-3">
+        <div class="mb-3 filtre">
         {{--Par type--}}
         <button class="text-white bg-slate-700 font-medium rounded text-sm p-2 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown-type">Type<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
         <!-- Dropdown menu -->
-    <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown-type">
-        
-        <ul class="py-1" aria-labelledby="dropdown-type">
-            <li>
-                <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'type' => 1] ) }}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Rouge</a>
-            </li>
-            <li>
-                <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'type' => 2] ) }}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Blanc</a>
-            </li>
-            <li>
-                <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'type' => 3] ) }}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Rosé</a>
-            </li>
-        </ul>
-    </div>
+        <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown-type">
 
-     {{--Par pays--}}
-     <button class="text-white bg-slate-700 font-medium rounded text-sm p-2 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown-pays">Provenance<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-     <!-- Dropdown menu -->
-    <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown-pays"> 
-        <ul class="py-1" aria-labelledby="dropdown-pays">
-            @foreach ($pays as $data)
-            <li>
-                <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'pays' => $data->pays] ) }}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">{{$data->pays}}</a>
-            </li>   
-            @endforeach
-        </ul>
-    </div>
+            <ul class="py-1" aria-labelledby="dropdown-type">
+                <li>
+                    <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'type' => 1] ) }}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Rouge</a>
+                </li>
+                <li>
+                    <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'type' => 2] ) }}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Blanc</a>
+                </li>
+                <li>
+                    <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'type' => 3] ) }}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Rosé</a>
+                </li>
+            </ul>
+        </div>
+
+        {{--Par pays--}}
+        <button class="text-white bg-slate-700 font-medium rounded text-sm p-2 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown-pays">Provenance<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+        <!-- Dropdown menu -->
+        <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown-pays">
+            <ul class="py-1" aria-labelledby="dropdown-pays">
+                @foreach ($pays as $data)
+                <li>
+                    <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'pays' => $data->pays] ) }}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">{{$data->pays}}</a>
+                </li>
+                @endforeach
+            </ul>
+        </div>
 
 
     {{--Par préférence--}}
     <button class="text-white bg-slate-700 font-medium rounded text-sm p-2 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown-note">Note<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
     <!-- Dropdown menu -->
     <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown-note">
-    
+
     <ul class="py-1" aria-labelledby="dropdown-note">
     <li>
-        <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'note' => 1] ) }}" class="flex text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">1<svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg></a>
+        <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'note' => 1] ) }}" class="flex text-sm hover:bg-gray-100 text-gray-700  px-4 py-2">1<svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg></a>
     </li>
     <li>
-        <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'note' => 2] ) }}" class="flex text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">2<svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg></a>
+        <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'note' => 2] ) }}" class="flex text-sm hover:bg-gray-100 text-gray-700  px-4 py-2">2<svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg></a>
     </li>
     <li>
-        <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'note' => 3] ) }}" class="flex text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">3<svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg></a>
+        <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'note' => 3] ) }}" class="flex text-sm hover:bg-gray-100 text-gray-700  px-4 py-2">3<svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg></a>
     </li>
     <li>
-        <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'note' => 4] ) }}" class="flex text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">4<svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg></a>
+        <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'note' => 4] ) }}" class="flex text-sm hover:bg-gray-100 text-gray-700  px-4 py-2">4<svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg></a>
     </li>
     <li>
-        <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'note' => 5] ) }}" class="flex text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">5<svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg></a>
+        <a href="{{ route('bouteille.liste', ['id' => $cellier->id,'note' => 5] ) }}" class="flex text-sm hover:bg-gray-100 text-gray-700  px-4 py-2">5<svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg></a>
     </li>
     </ul>
     </div>
-    <a class="ml-3 text-white bg-neutral-600 font-medium rounded text-lg px-3 py-2 text-center inline-flex items-center" href="{{ route('bouteille.liste', ['id' => $cellier->id] ) }}"><i class="fa-solid fa-xmark"></i></a>
-
+    <div class="grow text-right">
+        <a class="ml-3 text-white bg-neutral-600 font-medium rounded text-lg px-3 py-2 text-center inline-flex items-center" href="{{ route('bouteille.liste', ['id' => $cellier->id] ) }}"><i class="fa-solid fa-xmark"></i></a>
+    </div>
 
 </div>
 
 
-
-
-
     <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
     {{-- FIN Section filtre --}}
-        
+
     @endif
 
 
@@ -171,21 +169,36 @@
         {{-- FIN Section img  --}}
 
         <div class="p-4 grow flex flex-col">
-        
-        
+
+
 
           <div class="flex items-center justify-between">
             {{-- Section pour inserer le nom de la bouteille --}}
             <h1 class="text-gray-600 font-medium">{{$info->nom}}</h1>
 
             {{-- Boutton pour gerer la description --}}
-            <button class="text-gray-500 hover:text-gray-900">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
-              </svg>
-            </button> 
 
- 
+            {{-- Click pour Info description sur la bouteille ALPINEJS--}}
+            <div x-data="{showContextMenu:false}">
+                <div class="z-50 relative" @click.away="showContextMenu=false">
+                  <button class="bg-white h-10 w-10 leading-10 text-center text-gray-800 text-xl  rounded-lg  font-semibold outline-none" @click="showContextMenu=true">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                      </svg>
+                  </button>
+                  <div class="z-50 absolute mt-12 bottom-0 right-0 min-w-full w-25 " style="display:none;" x-show="showContextMenu" >
+                    <div class="description z-50 p-5 bg-white overflow-auto rounded-lg shadow-md w-full relative z-10 py-2 border border-gray-300 text-gray-800 text-2xl">
+                        
+                        <p>{{ $info->description}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            {{-- FIN Click pour Info description sur la bouteille ALPINEJS--}}
+
+
             {{-- Section Autre --}}
 
 
@@ -214,13 +227,13 @@
         @if ($info->millesime)
         <div class="options py-1 flex mt-3 pr-3 space-x-2  text-sm font-medium justify-start items-baseline">
             <p>Millesime</p>
-            <span class="inline-block bg-slate-900 text-white rounded-lg p-1   text-sm font-semibold text-gray-700 ">{{ $info->millesime }}</span>
+            <span class="inline-block bg-gray-200 text-slate rounded-lg p-1   text-sm font-semibold  ">{{ $info->millesime }}</span>
         </div>
     @endif
 
  {{-- Section AJOUTER au BOIRE --}}
         <div class="grow flex flex-col justify-end justify-items-stretch content-end">
-          
+
            @csrf
            <div class="options py-2  text-sm" data-id="{{$info->vino__cellier_id}}" data-id-vin="{{$info->vino__bouteille_id}}">
                <p class="font-semibold">Quantité </p>
@@ -236,7 +249,7 @@
 
              {{-- Section pour inserer les notes --}}
 
-  
+
         <div class="feedback">
           <div class="note" data-id="{{ $info->vino__cellier_id }}" data-id-vin="{{ $info->vino__bouteille_id }}">
 
@@ -254,10 +267,10 @@
 
             <input type="radio" name="note-{{$info->vino__bouteille_id}}" id="note-{{$info->vino__bouteille_id}}-1" value="1" @if($info->note == "1") checked @endif>
             <label for="note-{{$info->vino__bouteille_id}}-1"></label>
-            
+
           </div>
         </div>
-      
+
     </div>
 
 
