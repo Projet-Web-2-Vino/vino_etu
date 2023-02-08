@@ -7,7 +7,7 @@
        
 {{-- Section Front-End refait avec TailwindCSS --}}
 
-    <div class="logZone w-9/12   flex rounded-lg shadow-xl" >
+    <div class="logZone grow sm:w-full md:w-9/12   flex rounded-lg shadow-xl" >
         <div class="w-full h-auto hidden lg:block lg:w-1/2 bg-cover rounded-lg lg:rounded-r-none"
             style="background-image: url('https://images.pexels.com/photos/2909085/pexels-photo-2909085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')">
         </div>

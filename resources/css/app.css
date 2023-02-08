@@ -150,8 +150,17 @@
 }
 
 .appbtn:hover {
-  background-color: black;
-  color:white;
+  background-color: rgb(109, 4, 4);
+  
+}
+
+/*Mediaqueries*/
+
+@media screen and (max-width: 200px) {
+  .appbtn {
+    font-size: 1em;
+    letter-spacing:normal;
+  }
 }
 
 
@@ -393,18 +402,7 @@ nav a span{
 
 }
 
-.cellierCarte{
-  /*min-width: 400px;*/
-}
 
-.cellierCarte img{
-  max-width:70%;
-  margin:0 auto;
-}
-
-.cellierCarte form{
-  margin:0;
-}
 
 .vinoCarte{
   position:relative;
@@ -428,6 +426,33 @@ nav a span{
 
 .vinoCarte h1{
   line-height: 1em;
+}
+
+.cellierCarte{
+  max-width: 90%;
+}
+
+.cellierCarte img{
+  max-width:70%;
+  margin:0 auto;
+}
+
+.cellierCarte form{
+  margin:0;
+}
+
+/* Mediaqueries carte cellier */
+@media screen and (min-width: 400px) {
+  .cellierCarte{
+    max-width: 45%;
+  }
+}
+
+
+@media screen and (min-width: 700px) {
+  .cellierCarte{
+    max-width: 30%;
+  }
 }
 
 a{

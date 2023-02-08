@@ -38,7 +38,7 @@
             @if ($celliers)
                 @foreach ($celliers as $info)
 
-                    <div class="vinoCarte cellierCarte sm:w-full md:w-auto m-2 border border-gray-200 rounded-lg shadow">   
+                    <div class="vinoCarte cellierCarte  m-2 border border-gray-200 rounded-lg shadow">   
                         
 
 

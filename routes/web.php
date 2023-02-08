@@ -121,6 +121,12 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
 
 });//prevent back middleware
 
+ //Section page d'accueil
+ Route::get('/', AcceuilController::class)->name('acceuil');
+
+// Route Fallback pour les routes non existantes Page Erreur 404
+Route::fallback(FallbackController::class);
+
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
