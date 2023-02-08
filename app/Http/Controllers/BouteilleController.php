@@ -180,41 +180,78 @@ class BouteilleController extends Controller
             $id_usager = Auth::id();
             $quantite = Request::get('quantite');
             $id_cellier = Request::get('id_cellier');
+            $code_saq = Request::get('code_saq');
             $note = 0;
-
-            //validation du data
-            $this->validateBouteille($request);
-            
-            //Ajout de la bouteille dans vin personalize
-            //TODO check duplication//
-            $bouteille = BouteillePersonalize::create(Request::except(['quantite', 'id_cellier', 'millesime2' ]));
-
-            //Ajout de la bouteille dans le cellier 
-            $idBouteille = $bouteille->id;
-            $request2 = [
-                'vino__cellier_id'   => $id_cellier,
-                'vino__bouteille_id' => $idBouteille,
-                'quantite' => $quantite
-            ];
-
-            CelliersBouteilles::create($request2);
-
-            //Ajout note 0 par défaut
-            $request3 = [
-                'id_usager'   => $id_usager,
-                'note' => $note,
-                'id_bouteille' => $idBouteille
-            ];
-
-            Note::create($request3);
+            $doublon = 0;
 
             $titre = 'bouteille'; // var qui sert à la gestion du bouton milieu du menu du bas
 
-            //Redirect vers la liste des bouteille du cellier avec un message de succès
-            return redirect()
-            ->route('bouteille.liste', [ 'id' => $id_cellier, 'titre' => $titre] )
-            ->withSuccess('Vous avez ajouter la bouteille '.$bouteille->nom.'!');
-       
+            //dd($code_saq);
+
+            //validation du data
+            $this->validateBouteille($request);
+
+            //Détecter si Doublon//
+            $bouteilles = DB::table('vino__cellier_has_vino__bouteille')
+            ->select('*')
+            ->leftjoin('vino__note', 'vino__bouteille_id', '=', 'vino__note.id_bouteille')
+            ->join('vino__bouteille_personalize', 'vino__bouteille_id', '=', 'vino__bouteille_personalize.id')
+            ->join('vino__cellier', 'vino__cellier_id', '=', 'vino__cellier.id')
+            ->where('vino__cellier_id', $id_cellier)
+            ->orderBy('vino__bouteille_id', 'DESC')
+            ->get();
+
+            foreach ($bouteilles as $data){
+                //dd($data);
+                if($code_saq == $data->code_saq){
+
+                    $quantite = $data->quantite + 1;
+                    $bouteille = CelliersBouteilles::where('vino__bouteille_id', $data->vino__bouteille_id)
+                                ->limit(1)
+                                ->update(['quantite' => $quantite]);
+                    $doublon = 1;
+
+                    return redirect()
+                    ->route('bouteille.liste', [ 'id' => $id_cellier, 'titre' => $titre] )
+                    ->withSuccess('Vous avez déjà la bouteille '.$data->nom.', une bouteille a été ajoutée à la quantité');
+  
+                }
+            }
+            
+
+
+            if(!$doublon){
+                //Ajout de la bouteille dans vin personalize
+                //TODO check duplication//
+                $bouteille = BouteillePersonalize::create(Request::except(['quantite', 'id_cellier', 'millesime2' ]));
+
+                //Ajout de la bouteille dans le cellier 
+                $idBouteille = $bouteille->id;
+                $request2 = [
+                    'vino__cellier_id'   => $id_cellier,
+                    'vino__bouteille_id' => $idBouteille,
+                    'quantite' => $quantite
+                ];
+
+                CelliersBouteilles::create($request2);
+
+                //Ajout note 0 par défaut
+                $request3 = [
+                    'id_usager'   => $id_usager,
+                    'note' => $note,
+                    'id_bouteille' => $idBouteille
+                ];
+
+                Note::create($request3);
+
+            
+
+                //Redirect vers la liste des bouteille du cellier avec un message de succès
+                return redirect()
+                ->route('bouteille.liste', [ 'id' => $id_cellier, 'titre' => $titre] )
+                ->withSuccess('Vous avez ajouter la bouteille '.$bouteille->nom.'!');
+            }
+            
         }else{
 
             return redirect('/login');
