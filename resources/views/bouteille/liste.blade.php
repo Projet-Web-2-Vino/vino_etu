@@ -86,8 +86,7 @@
         <button class="text-white bg-slate-700 font-medium rounded text-sm p-2 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown-note">Note<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
 
         <div class="mb-3 filtre">
-        {{--Par type--}}
-        <button class="text-white bg-slate-700 font-medium rounded text-sm p-2 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown-type">Type<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+
 
         <!-- Dropdown menu -->
         <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown-note">
@@ -110,7 +109,7 @@
                 </li>
             </ul>
         </div>
-        <a class="ml-3 text-white bg-neutral-600 font-medium rounded text-lg px-3 py-2 text-center inline-flex items-center" href="{{ route('bouteille.liste', ['id' => $cellier->id] ) }}"><i class="fa-solid fa-xmark"></i></a>
+      
 
 
     </div>
@@ -184,33 +183,44 @@
         <div class="p-4 grow flex flex-col">
 
 
-
+            
           <div class="flex items-center justify-between">
-            {{-- Section pour inserer le nom de la bouteille --}}
-            <h1 class="text-gray-600 font-medium">{{$info->nom}}</h1>
 
+            {{-- Section pour inserer le nom de la bouteille --}}
+            <div class="flex items-center justify-items-stretch justify-between">
+
+            <h1 class="grow text-gray-600 font-medium">{{$info->nom}}</h1>
 
             {{-- Click pour Info description sur la bouteille ALPINEJS--}}
-            <div class="mt-4">
-            <div x-data="{showContextMenu:false}">
-                {{-- ContextMenu False / Modale ferme quand on click away --}}
-                <div class=" relative" @click.away="showContextMenu=false">
-                    <button class=" h-10 w-10 leading-10 text-center text-gray-800 text-xl  rounded-lg  font-semibold outline-none" @click="showContextMenu=true" " >
-                        <i class="fa-solid fa-circle-info"></i>
-                    </button>
-                  <div class="z-50 absolute mt-12 bottom-0 right-0 min-w-full w-25 " style="display:none;" x-show="showContextMenu" >
-                    <div class="description z-50 p-5 bg-white overflow-auto rounded-lg shadow-md w-full relative py-2 border border-gray-300 text-gray-800 text-2xl">
+            <div class="">
+                <div x-data="{showContextMenu:false}">
+                    {{-- ContextMenu False / Modale ferme quand on click away --}}
+                    <div class=" relative" @click.away="showContextMenu=false">
 
-                        <p class="text-xs"><small><strong>Pays </strong>{{ $info->pays}}</small></p>
-                        <p class="flex  text-xs"><small><strong>Prix: </strong>{{ $info->prix_saq}}$</small></p>
-                        <p class="flex  text-xs"><small><strong>Code Saq: </strong>{{ $info->code_saq}}</small></p>
+                        <button class=" h-10 w-10 leading-10 text-center text-gray-800 text-xl  rounded-lg  font-semibold outline-none" @click="showContextMenu=true" " >
+                            <i class="fa-solid fa-circle-info"></i>
+                        </button>
+
+
+                      <div class="z-50 absolute mt-12 bottom-0 right-0" style="display:none;" x-show="showContextMenu" >
+                        <div class="description z-50 p-8 bg-white overflow-auto rounded-lg shadow-md w-full relative  border border-gray-300 text-gray-800 text-lg">
+    
+                            @if($info->code_saq)
+                            <p class="flex mb-1"><small><strong>Prix: </strong>{{ $info->prix_saq}}$</small></p>
+                            <p class="flex mb-1"><small><strong>Code Saq: </strong>{{ $info->code_saq}}</small></p>
+                            @endif
+                            <p class="flex mb-1"><small><strong>Description: </strong>{{ $info->description}}</small></p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+    
+                {{-- FIN Click pour Info description sur la bouteille ALPINEJS--}}
+
             </div>
 
-            {{-- FIN Click pour Info description sur la bouteille ALPINEJS--}}
+            
 
 
             {{-- Section Autre --}}
@@ -245,6 +255,29 @@
         </div>
     @endif
 
+    {{-- Section pour inserer les notes --}}
+    <div class="feedback my-3">
+        <p class="font-semibold text-sm">Note :</p>
+        <div class="note" data-id="{{ $info->vino__cellier_id }}" data-id-vin="{{ $info->vino__bouteille_id }}">
+
+          <input type="radio" name="note-{{$info->vino__bouteille_id}}" id="note-{{$info->vino__bouteille_id}}-5" value="5" @if($info->note == "5") checked @endif>
+          <label for="note-{{$info->vino__bouteille_id}}-5"></label>
+
+          <input type="radio" name="note-{{$info->vino__bouteille_id}}" id="note-{{$info->vino__bouteille_id}}-4" value="4" @if($info->note == "4") checked @endif>
+          <label for="note-{{$info->vino__bouteille_id}}-4"></label>
+
+          <input type="radio" name="note-{{$info->vino__bouteille_id}}" id="note-{{$info->vino__bouteille_id}}-3" value="3" @if($info->note == "3") checked @endif>
+          <label for="note-{{$info->vino__bouteille_id}}-3"></label>
+
+          <input type="radio" name="note-{{$info->vino__bouteille_id}}" id="note-{{$info->vino__bouteille_id}}-2" value="2" @if($info->note == "2") checked @endif>
+          <label for="note-{{$info->vino__bouteille_id}}-2"></label>
+
+          <input type="radio" name="note-{{$info->vino__bouteille_id}}" id="note-{{$info->vino__bouteille_id}}-1" value="1" @if($info->note == "1") checked @endif>
+          <label for="note-{{$info->vino__bouteille_id}}-1"></label>
+
+        </div>
+      </div>
+
  {{-- Section AJOUTER au BOIRE --}}
         <div class="grow flex flex-col justify-end justify-items-stretch content-end">
 
@@ -261,37 +294,11 @@
 
            </div>
 
-             {{-- Section pour inserer les notes --}}
-
-
-        <div class="feedback">
-          <div class="note" data-id="{{ $info->vino__cellier_id }}" data-id-vin="{{ $info->vino__bouteille_id }}">
-
-            <input type="radio" name="note-{{$info->vino__bouteille_id}}" id="note-{{$info->vino__bouteille_id}}-5" value="5" @if($info->note == "5") checked @endif>
-            <label for="note-{{$info->vino__bouteille_id}}-5"></label>
-
-            <input type="radio" name="note-{{$info->vino__bouteille_id}}" id="note-{{$info->vino__bouteille_id}}-4" value="4" @if($info->note == "4") checked @endif>
-            <label for="note-{{$info->vino__bouteille_id}}-4"></label>
-
-            <input type="radio" name="note-{{$info->vino__bouteille_id}}" id="note-{{$info->vino__bouteille_id}}-3" value="3" @if($info->note == "3") checked @endif>
-            <label for="note-{{$info->vino__bouteille_id}}-3"></label>
-
-            <input type="radio" name="note-{{$info->vino__bouteille_id}}" id="note-{{$info->vino__bouteille_id}}-2" value="2" @if($info->note == "2") checked @endif>
-            <label for="note-{{$info->vino__bouteille_id}}-2"></label>
-
-            <input type="radio" name="note-{{$info->vino__bouteille_id}}" id="note-{{$info->vino__bouteille_id}}-1" value="1" @if($info->note == "1") checked @endif>
-            <label for="note-{{$info->vino__bouteille_id}}-1"></label>
-
-          </div>
-        </div>
+        
 
     </div>
 
-
-
-
-
-        </div>
+</div>
 
     {{-- Section Fin Carte Bouteil  --}}
 
