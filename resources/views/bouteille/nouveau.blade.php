@@ -137,18 +137,21 @@
 							</div>
 						-->
 							</div>
-							<div class="pt-4 flex items-center space-x-4">
-								<a class="flex justify-center items-center w-full text-gray-900 px-4 py-3 rounded-md focus:outline-none" href='/cellier'>
-								<svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Annuler
-								</a>
-								<a class="flex justify-center items-center w-full text-gray-900 px-4 py-3 rounded-md focus:outline-none" onclick="resetForm()">
-									<svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Effacer
-								</a>
+							<div class="flexBtnForm pt-4 flex flex-wrap flex justify-end">
+								<div class="grow flex flex-wrap">
+									<a class="flex justify-center   text-gray-900 px-4 py-2" href='/cellier'>
+									<svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Annuler
+									</a>
+									<a class="flex justify-center   text-gray-900 px-4 py-2" onclick="resetForm()">
+										<svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Effacer
+									</a>
+								</div>
 								{{-- Section pour le bouton ajouter --}}
 								<form action="{{ route('cellier.creer')}}" method="POST">
 									@csrf
-								<button class="bg-red-800 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none">Ajouter</button>
+								<button class="btnAjouterForm bg-red-800 flex justify-center items-center  text-white px-8 py-2 rounded-md focus:outline-none">Ajouter</button>
 								</form>
+								
 							</div>
 						
 		
