@@ -149,7 +149,7 @@
 								{{-- Section pour le bouton ajouter --}}
 								<form action="{{ route('cellier.creer')}}" method="POST">
 									@csrf
-								<button class="btnAjouterForm bg-red-800 flex justify-center items-center  text-white px-8 py-2 rounded-md focus:outline-none">Ajouter</button>
+								<button class="btnAjouterForm bg-slate-900 flex justify-center items-center  text-white px-8 py-2 rounded-md focus:outline-none">Ajouter</button>
 								</form>
 								
 							</div>
