@@ -275,7 +275,7 @@ class BouteilleController extends Controller
             $request3 = new Request;
             $request3::merge($request2);
 
-            $this->quantite($request3);
+            $this->quantite($idCellier, $idVin, $quantite);
 
             // Retourne au formulaire
             return redirect()
@@ -335,19 +335,29 @@ class BouteilleController extends Controller
     }
 
 
+    public function updateBouteille()
+    {
+       
+        $idVin = Request::get('idVin');
+        $idCellier = Request::get('idCellier');
+        $quantite = Request::get('quantite');
+        $note = Request::get('note');
+        //dd($idCellier, $idVin, $quantite, $note);
+
+        if($quantite) $this->quantite($idVin, $idCellier, $quantite);
+        if($note) $this->note($idVin, $idCellier, $note);
+          
+    }
+
+
 
     /** 
      * Modifie la quantité de bouteille
      * 
     */
-    public function quantite()
+    public function quantite($idVin, $idCellier, $quantite)
     {
        
-        $idVin = intval(Request::get('idVin'));
-        $idCellier = Request::get('idCellier');
-        $quantite = Request::get('quantite');
-        //dd($idCellier, $idVin, $quantite);
-
         $updated = CelliersBouteilles::where('vino__bouteille_id', $idVin)
                                         ->limit(1)
                                         ->update(['quantite' => $quantite]); 
@@ -357,25 +367,17 @@ class BouteilleController extends Controller
         //TODO si ça n'a pas fonctionner
 
         // Redirect
-        return redirect()
-            ->route('bouteille.liste', [ 'id' => $idCellier] );
+        return route('bouteille.liste', [ 'id' => $idCellier] );
           
     }
 
     /**
      * Fonction qui modifie la note de la  bouteille
      */
-    public function note(Request $request)
+    public function note($idVin, $idCellier, $note)
     {
         //dd($request);
        
-        $idVin = intval(Request::get('idVin'));
-       //dd($idVin);
-        $idCellier = Request::get('idCellier');
-        //dd($idCellier);
-        $note = Request::get('note');
-        //dd($idCellier, $idVin, $note);
-
         $updated = Note::where('id_bouteille', $idVin)
                                         ->limit(1)
                                         ->update(['note' =>$note]); 
