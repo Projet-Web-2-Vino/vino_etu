@@ -6,9 +6,7 @@
     SECTION PAGE ACCUEIL
 */
 
-body{
-  padding-bottom:120px;
-}
+
 
 .background {
   background-position: center;
@@ -44,6 +42,7 @@ body{
   font-size: 60px;
   color: #ffffff;
   text-align: center;
+  overflow-wrap: break-word;
 }
 
 .subtitle {
@@ -139,7 +138,7 @@ body{
 /* vue accueil-login-register*/
 
 .title {
-  font-size: 8vw;
+  font-size: 10vw;
   margin-bottom: 5vh;
 }
 
@@ -147,10 +146,12 @@ body{
 .appbtn {
   display: inline-block;
   max-width: 80%;
+  letter-spacing: 1px;
 }
 
 .appbtn:hover {
-  color: #000;
+  background-color: black;
+  color:white;
 }
 
 
@@ -240,6 +241,9 @@ form[name="recherche"] {
 
 /* Si écran > 1020px  */
 @media screen and (min-width: 1020px) {
+  .title {
+    font-size: 8vw;
+  }
   .titleLog {
     font-size: 4vw;
   }
@@ -371,7 +375,7 @@ nav a span{
 /*commun  app*/
 
 .container{
-  padding:5px;
+  padding:5px 5px 120px 5px;
 }
 
 .titreSecondaire{
@@ -524,7 +528,7 @@ a{
 
 @media screen and (min-width: 500px) {
   .container{
-    padding:20px;
+    padding:20px 20px 120px 20px;
   }
   
 }
