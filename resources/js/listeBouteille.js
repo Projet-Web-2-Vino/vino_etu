@@ -59,29 +59,33 @@ window.addEventListener("load", function() {
                 let valueQuantite = elemBouteille.querySelector('.quantite').innerText;
                 let elemQuantite = elemBouteille.querySelector('.quantite')
                // console.log(valueQuantite);
+               valueQuantite = parseInt(valueQuantite);
+               console.log('quantite' + valueQuantite);
 
 
-                let action = evt.target.parentElement.dataset.action
-                //console.log(action)
+                let action = evt.currentTarget.dataset.action
+                console.log(evt.currentTarget)
+                console.log(action)
                 let newQuantite = valueQuantite
                 if (action == 'plus') {
-                    newQuantite = parseInt(valueQuantite) + 1
-                } else {
+                    newQuantite = valueQuantite + 1
+                    console.log('new' + newQuantite)
+                } else if(action == 'moins') {
                     //console.log(valueQuantite)
 
                     if (valueQuantite != 0) {
-                        newQuantite = parseInt(valueQuantite) - 1
+                        newQuantite = valueQuantite - 1
                     } else {
                         newQuantite = 0;
 
                     }
                 }
 
-                // console.log(newQuantite);
+                
 
                 //recherche Url
                 const url = window.location.href
-                //console.log(url);
+                console.log(url);
 
                 const options = {
                     headers: {
@@ -100,10 +104,11 @@ window.addEventListener("load", function() {
                     })
                 }
 
-
+                
                  fetch(url, options)
                     .then((data) => {
-                        console.log(data)
+                        //console.log('ici');
+                        //console.log(data)
                         /*Injecter la quantite dans le HTML*/
                 //console.log(typeof newQuantite)
                 // console.log(valueQuantite);
