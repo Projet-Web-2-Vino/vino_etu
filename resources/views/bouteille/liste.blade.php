@@ -138,20 +138,24 @@
 
 
         {{-- Section Action  --}}
-        <div class="flex justify-between relative rounded-3xl  p-3 text-right">
+        <div class="flex justify-end relative rounded-3xl  p-3 text-right">
 
             <!-- logo SAQ-->
-            <span class="inline-block mr-2">
-                <a href="{{$info->url_saq}}"><img class="logoSAQ" src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/84/SAQ_Logo.svg/1200px-SAQ_Logo.svg.png" alt=""></a>
-            </span>
+            
+            
+            
 
-
+            
               <!-- zone edit bouteille-->
-              <div class="flex justify-items-end">
-              <span class="inline-block text-xl text-gray-700 mr-2">
-                  <a href="{{ route('bouteille.edit', ['idVin' => $info->vino__bouteille_id, 'idCellier' => $info->vino__cellier_id  ]) }}">
-                  <i class="far fa-edit"></i></a>
-              </span>
+              
+                @if($info->url_saq)
+                <a class="mr-2" href="{{$info->url_saq}}"><img class="logoSAQ" src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/84/SAQ_Logo.svg/1200px-SAQ_Logo.svg.png" alt=""></a>
+                @else
+                <span class="inline-block text-xl text-gray-700 mr-2">
+                    <a href="{{ route('bouteille.edit', ['idVin' => $info->vino__bouteille_id, 'idCellier' => $info->vino__cellier_id  ]) }}">
+                    <i class="far fa-edit"></i></a>
+                </span>
+                @endif
               <!-- zone delete bouteille-->
               <span class="inline-block text-xl  text-gray-700">
                   <form action="{{ route('bouteille.supprime', ['idVin' => $info->vino__bouteille_id, 'idCellier' => $info->vino__cellier_id ]) }}" method="POST">
@@ -160,7 +164,7 @@
                         <i class="fa-sharp fa-solid fa-trash  space-y-2"></i></button>
                   </form>
               </span>
-          </div>
+          
         </div>
         {{-- FIN Section Action  --}}
 
@@ -187,12 +191,12 @@
           <div class="flex items-center justify-between">
 
             {{-- Section pour inserer le nom de la bouteille --}}
-            <div class="flex items-center justify-items-stretch justify-between">
+            <div class="flex w-full items-center justify-items-stretch justify-between">
 
             <h1 class="grow text-gray-600 font-medium">{{$info->nom}}</h1>
 
             {{-- Click pour Info description sur la bouteille ALPINEJS--}}
-            <div class="">
+            <div class="self-end">
                 <div x-data="{showContextMenu:false}">
                     {{-- ContextMenu False / Modale ferme quand on click away --}}
                     <div class=" relative" @click.away="showContextMenu=false">
@@ -257,7 +261,7 @@
 
     {{-- Section pour inserer les notes --}}
     <div class="feedback my-3">
-        <p class="font-semibold text-sm">Note :</p>
+        <p class="font-semibold text-sm">Note</p>
         <div class="note" data-id="{{ $info->vino__cellier_id }}" data-id-vin="{{ $info->vino__bouteille_id }}">
 
           <input type="radio" name="note-{{$info->vino__bouteille_id}}" id="note-{{$info->vino__bouteille_id}}-5" value="5" @if($info->note == "5") checked @endif>

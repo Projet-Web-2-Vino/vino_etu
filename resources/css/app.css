@@ -532,9 +532,7 @@ a{
   position: relative;
 }
 
-.note-0 {
-  filter: grayscale(100%);
-}
+
 
 .note > input {
   display: none;
@@ -549,7 +547,7 @@ a{
   background-repeat: no-repeat;
   background-position: center;
   background-size: 76%;
-  transition: .3s;
+  
 }
 
 .note > input:checked ~ label,
