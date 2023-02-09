@@ -220,7 +220,7 @@ form[name="recherche"] {
   font-size: 12px;
 }
 
-/*fiz titre des cellier quand écran très petit*/
+/*fix titre des cellier quand écran très petit*/
 
 
 /*Mediaqueries*/
@@ -507,7 +507,7 @@ a{
 }
 
 .logoSAQ{
-  width: 20px;
+  width: 25px;
 }
 
 .cellierTitre{
@@ -532,9 +532,7 @@ a{
   position: relative;
 }
 
-.note-0 {
-  filter: grayscale(100%);
-}
+
 
 .note > input {
   display: none;
@@ -549,7 +547,7 @@ a{
   background-repeat: no-repeat;
   background-position: center;
   background-size: 76%;
-  transition: .3s;
+  
 }
 
 .note > input:checked ~ label,
@@ -624,5 +622,22 @@ a{
     padding:20px 20px 120px 20px;
   }
 
+}
+
+
+nav svg{
+  transform: scale(1.2);
+}
+
+nav a i{
+  font-size:1.75em!important;
+}
+
+.vinoCarte span i{
+  font-size:1.25em;
+}
+
+.vinoCarte form button i{
+  font-size:1.2em!important;
 }
 

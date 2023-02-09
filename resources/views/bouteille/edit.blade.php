@@ -119,14 +119,14 @@
 <!-- SCRIPT-->
 <script>
 
-
+    // Gestion du millesime avant l'update
     window.addEventListener("load",function(){
+       
     document.getElementById("sauvegarde").onclick= function(e) {
           e.preventDefault();
 
           var form = document.getElementById("formModifBouteille");
           form.millesime.value = form.millesime2.value
-        //  console.log(form.millesime.value );
 
           form.millesime2.remove();
 
@@ -136,4 +136,4 @@
     })
     
     
-    </script>
+</script>

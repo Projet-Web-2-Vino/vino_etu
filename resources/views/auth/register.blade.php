@@ -7,7 +7,7 @@
        
 {{-- Section Front-End refait avec TailwindCSS --}}
 
-    <div class="mt-20 logZone w-9/12   flex rounded-lg shadow-xl" >
+    <div class=" lg:my-20 logZone w-9/12   flex rounded-lg shadow-xl" >
         <div class="w-full  hidden lg:block lg:w-1/2 bg-cover rounded-lg lg:rounded-r-none"
             style="background-image: url('https://images.pexels.com/photos/2909085/pexels-photo-2909085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')">
         </div>
@@ -19,7 +19,7 @@
                 <div class="mb-4">
                      <!-- Name -->
                         <x-input-label for="name" :value="__('Name')" />
-                        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required  autofocus />
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />  
                 </div>
 

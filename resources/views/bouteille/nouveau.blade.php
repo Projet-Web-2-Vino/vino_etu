@@ -113,7 +113,7 @@
 								
 								 <!-- obligatoire -->
 								<label class="formlabel leading-loose" for="quantite">Quantité  :</label>
-								<input id="quantite" name="quantite" placeholder="Quantité" type="number" min="1" value="{{ old('quantite'), 1 }}"  class="mb-3 px-4 py-2 border focus:ring-gray-500 focus:border-red-200 w-full sm:text-sm border-gray-300 rounded-md text-gray-600">
+								<input id="quantite" name="quantite" placeholder="1" type="number" min="1" value="{{ old('quantite'), 1 }}"  class="mb-3 px-4 py-2 border focus:ring-gray-500 focus:border-red-200 w-full sm:text-sm border-gray-300 rounded-md text-gray-600">
 
 								
 								
@@ -167,205 +167,206 @@
 <!-- SCRIPT-->
 <script>
 
+window.addEventListener("load", function() {
 
-window.addEventListener("load",function(){
-document.getElementById("rechercheForm").onkeypress = function(e) {
-	//console.log(e.charCode)
-    var key = e.charCode || e.keyCode || 0;     
+ //Pour enlever le bogue quand usager pèse 'enter' sans faire de choix dans la recherche
+  document.getElementById("rechercheForm").onkeypress = function(e) {
+    //console.log(e.charCode)
+    var key = e.charCode || e.keyCode || 0;
     if (key == 13) {
       //alert("No Enter!");
       e.preventDefault();
     }
-  } 
+  }
 })
 
+/** 
+ * Fonction qui est appeler à chaque event keyUp dans la recherche
+ * Appel fech qui retourne le resultat par nom provenant du catalogue
+
+*/
+function fetchData() {
+
+  resetForm()
+  //recherche Value
+  let elRecherche = document.getElementById('recherche').value;
+
+  //Liste recherche
+  let liste = document.getElementById('listeAutoComplete');
+
+  //recherche Url
+  const url = "{{route('bouteille.recherche')}}";
+  
+
+  /* options fetch*/
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "X-Requested-With": "XMLHttpRequest",
+      "X-CSRF-Token": document.querySelector('input[name="_token"]').value
+    },
+    method: "post",
+    credentials: "same-origin",
+    body: JSON.stringify({
+      recherche: elRecherche
+    })
+  }
+
+  fetch(url, options)
+    .then((resp) => resp.json()) //Transforme  data en json
+    .then(function(data) {
+
+      var tbodyref = document.getElementById('tbodyfordata');
+      console.log(tbodyref);
+      tbodyref.innerHTML = '';
+      let bouteilles = data;
+      //console.log(bouteilles);
+
+	  /*Création element html des résultats*/
+      bouteilles.map(function(bouteille) {
+        let tr = createNode('tr'),
+          nom = createNode('td');
+        id = bouteille.id
+        nom.innerText = bouteille.nom;
+        nom.setAttribute('data-id', bouteille.id)
+        append(tr, nom);
+        append(tbodyref, tr);
+
+        /*
+        * Gestionnaire d'évènement clique sur l'élément tr ( nom de la bouteille) qui permet de faire la sélection parmi les choix de la liste
+        */
+        tr.addEventListener("click", function(evt) {
+          //console.log(evt.target.dataset.id)
+          if (evt.target.tagName == "TD") {
+
+            injectBouteilleInfo(bouteille)
+
+            //vide la recherche
+            console.log(liste);
+            liste.innerHTML = '<tbody class="transition-all" id="tbodyfordata"></tbody>';
+            document.getElementById('recherche').value = '';
+
+            //Rendre les inputs du form readonly
+            readOnly();
+
+          }
+        });
+
+      });
+    })
+    .catch(function(error) {
+      console.log(error);
+    })
+}
+
+//Creation de l'élément de recherche
+function createNode(element) {
+  return document.createElement(element);
+}
+
+//Injection de l'élément de recherche
+function append(parent, el) {
+  return parent.appendChild(el);
+}
+
+function injectBouteilleInfo(bte) {
+
+  //console.log(bte)
+  var form = document.getElementById('formAjoutBouteille')
+
+  //Injecter les info de la bouteille dans le formulaire si provient de la recherche
+  for (const property in bte) {
+    prop = `${property}`;
+    value = `${bte[property]}`;
+    // console.log(prop);
+    // console.log(value);
+
+    // radio bouton
+    if (prop == 'type') {
+      //console.log(typeof value)
+      valueBte = value
+      switch (valueBte) {
+        case '1':
+          //console.log(document.getElementById("rouge"))
+          document.getElementById("rouge").checked = true;
+          break;
+        case '2':
+          document.getElementById("blanc").checked = true;
+          break;
+        case '3':
+          document.getElementById("rose").checked = true;
+          break;
+      }
+    } else {
+      form[prop].value = value;
+    }
+
+    //ajout d'une quantite par defaut
+    form.quantite.value = 1;
+  }
+
+}
 
 
-    function fetchData()
-	{
-       
-		resetForm()
-		//recherche Value
-		let elRecherche = document.getElementById('recherche').value;
+/**
+ * Fonction qui réinitialise le formulaire d'ajout
+ * */
+function resetForm() {
+  var form = document.getElementById('formAjoutBouteille')
+  form.reset();
+  form.nom.readOnly = false
+  form.pays.readOnly = false
+  form.format.readOnly = false
+  form.millesime.value = ""
+  form.millesime2.value = ""
+  form.millesime2.disabled = false
 
-		//Liste recherche
-		let liste = document.getElementById('listeAutoComplete');
-		//console.log(liste)
+  /*radio group*/
+  document.querySelector('#radioLi').style.border = "1px solid #D1C9DB"
+  form.type.forEach(element => {
+    element.disabled = false
+    element.nextSibling.nextSibling.style.display = "inline-block"
+    element.style.display = "inline-block"
+  });
+}
 
-		//recherche Url
-        const url = "{{route('bouteille.recherche')}}";
-		//console.log(url);
+/**
+ * Fonction qui ne rend pas modifiable certaines info de la bouteille si elle provient du formulaire
+*/
+function readOnly() {
 
-		const options = {
-				headers: {
-				"Content-Type": "application/json",
-				"Accept": "application/json",
-				"X-Requested-With": "XMLHttpRequest",
-				"X-CSRF-Token": document.querySelector('input[name="_token"]').value
-				},
-				method: "post",
-				credentials: "same-origin",
-				body: JSON.stringify({
-				recherche: elRecherche
-				})
-			}
+  var form = document.getElementById('formAjoutBouteille')
 
-		fetch(url, options)
-		.then((resp) => resp.json()) //Transforme  data en json
-		.then(function(data){
-			
+  form.nom.readOnly = true
+  form.pays.readOnly = true
+  form.format.readOnly = true
 
-			var tbodyref  = document.getElementById('tbodyfordata');
-			console.log(tbodyref);
-			tbodyref.innerHTML = '';
-			let bouteilles = data;
-			//console.log(bouteilles);
-			bouteilles.map(function(bouteille){
-				let tr = createNode('tr'),
-					nom = createNode('td');
-					id = bouteille.id
-					nom.innerText = bouteille.nom;
-					nom.setAttribute('data-id', bouteille.id)
-					append(tr,nom);
-					append(tbodyref,tr);
+  /*detection millesime*/
+  let annee = form.nom.value.match(/(\d{4}-\d{4}|\d{4})/g)
+  if (annee) {
+    annee = annee[0];
+    form.millesime2.value = annee
+    form.millesime2.style.border = "none"
+    form.millesime.value = annee
+    console.log(form.millesime)
+    form.millesime2.disabled = true
+  }
 
-					/*
-      					* Gestionnaire d'évènement clique sur l'élément tr ( nom de la bouteille ) 
-     					  qui permet de faire la sélection parmi les choix de la liste
-    				*/
-					tr.addEventListener("click", function(evt){
-						//console.log(evt.target.dataset.id)
-						if(evt.target.tagName == "TD"){
-						
-						injectBouteilleInfo(bouteille)
+  //console.log(annee);
 
-						//vide la recherche
-						console.log(liste);
-						liste.innerHTML = '<tbody class="transition-all" id="tbodyfordata"></tbody>';
-						document.getElementById('recherche').value = '';
+  /*disable les autres options... dans ce cas-ci provenant du catalogue=rouge*/
+  document.querySelector('#radioLi').style.border = "none"
+  form.type.forEach(element => {
+    if (!element.checked) {
+      element.disabled = true
+      element.nextSibling.nextSibling.style.display = "none"
+      element.style.display = "none"
 
-						//Rendre les inputs du form readonly
-						readOnly();
+    }
+  });
 
+}
 
-						}
-					});
-
-				});			
-		})
-		.catch(function(error){
-			console.log(error);
-		})
-	}
-
-	//Creation de l'élément de recherche
-	function createNode(element)
-	{
-		return document.createElement(element);
-	}
-
-	//Injection de l'élément de recherche
-	function append(parent,el)
-	{
-		return parent.appendChild(el);
-	}
-
-
-	function injectBouteilleInfo(bte)
-	{
-
-		//console.log(bte)
-		var form = document.getElementById('formAjoutBouteille')
-		
-		//Injecter les info de la bouteille dans le formulaire si vient de la recherche
-		for (const property in bte) {
-			  prop = `${property}`;
-			  value = `${bte[property]}`;
-			 // console.log(prop);
-			 // console.log(value);
-
-			 // radio bouton
-			  if (prop == 'type'){
-				//console.log(typeof value)
-				valueBte = value
-				switch (valueBte) {
-					case '1':
-					//console.log(document.getElementById("rouge"))
-					document.getElementById("rouge").checked =true;
-					break;
-					case '2':
-					document.getElementById("blanc").checked =true;
-					break;
-					case '3':
-					document.getElementById("rose").checked =true;
-					break;
-				}
-			  }else{
-				form[prop].value = value;
-			  } 
-			  
-			   //ajout d'une quantite par defaut
-			   form.quantite.value = 1;
-		}
-		
-	}
-
-	function resetForm(){
-		var form = document.getElementById('formAjoutBouteille')
-		form.reset();
-		form.nom.readOnly = false
-		form.pays.readOnly = false
-		form.format.readOnly = false
-		form.millesime.value = ""
-		form.millesime2.value = ""
-		form.millesime2.disabled = false
-
-		/*radio group*/
-		document.querySelector('#radioLi').style.border = "1px solid #D1C9DB"
-		form.type.forEach(element => {
-				element.disabled = false
-				element.nextSibling.nextSibling.style.display = "inline-block"
-				element.style.display = "inline-block"
-		});
-	}
-
-	function readOnly()
-	{
-
-		var form = document.getElementById('formAjoutBouteille')
-		
-		form.nom.readOnly = true
-		form.pays.readOnly = true
-		form.format.readOnly = true
-
-		/*detection millesime*/
-		let annee = form.nom.value.match(/(\d{4}-\d{4}|\d{4})/g)
-		if(annee){
-			annee = annee[0];
-			form.millesime2.value = annee
-			form.millesime2.style.border = "none"
-			form.millesime.value = annee
-			console.log(form.millesime)
-			form.millesime2.disabled = true
-		}
-		
-		//console.log(annee);
-		
-
-		
-		
-		/*disable les autres options... dans ce cas-ci provenant du catalogue=rouge*/
-		document.querySelector('#radioLi').style.border = "none"
-		form.type.forEach(element => {
-			if(!element.checked) {
-				element.disabled = true
-				element.nextSibling.nextSibling.style.display = "none"
-				element.style.display = "none"
-				
-			} 
-		});
-		
-		
-	}
 
 </script>
