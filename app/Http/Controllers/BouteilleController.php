@@ -181,8 +181,14 @@ class BouteilleController extends Controller
             $quantite = Request::get('quantite');
             $id_cellier = Request::get('id_cellier');
             $code_saq = Request::get('code_saq');
+            $nomBouteille = Request::get('nom');
+            $type = Request::get('type');
+            $pays = Request::get('pays');
+            $format = Request::get('format');
             $note = 0;
             $doublon = 0;
+
+            
 
             $titre = 'bouteille'; // var qui sert à la gestion du bouton milieu du menu du bas
 
@@ -201,11 +207,13 @@ class BouteilleController extends Controller
             ->orderBy('vino__bouteille_id', 'DESC')
             ->get();
 
+            //dd($bouteilles);
+
             foreach ($bouteilles as $data){
                 //dd($data);
-                if($code_saq == $data->code_saq){
-
-                    $quantite = $data->quantite + 1;
+                if($code_saq == $data->code_saq && $nomBouteille == $data->nom &&$format == $data->format && $type == $data->type){
+                    //dd('ici');
+                    $quantite = $data->quantite + $quantite;
                     $bouteille = CelliersBouteilles::where('vino__bouteille_id', $data->vino__bouteille_id)
                                 ->limit(1)
                                 ->update(['quantite' => $quantite]);
@@ -213,8 +221,10 @@ class BouteilleController extends Controller
 
                     return redirect()
                     ->route('bouteille.liste', [ 'id' => $id_cellier, 'titre' => $titre] )
-                    ->withSuccess('Vous avez déjà la bouteille '.$data->nom.', une bouteille a été ajoutée à la quantité');
+                    ->withSuccess('Vous avez déjà la bouteille '.$data->nom.', '.$quantite. ' bouteille a été ajoutée à la quantité');
   
+                }else{
+                    $doublon = 0;
                 }
             }
             
@@ -251,7 +261,7 @@ class BouteilleController extends Controller
                 ->route('bouteille.liste', [ 'id' => $id_cellier, 'titre' => $titre] )
                 ->withSuccess('Vous avez ajouter la bouteille '.$bouteille->nom.'!');
             }
-            
+
         }else{
 
             return redirect('/login');
@@ -440,8 +450,7 @@ class BouteilleController extends Controller
         
         return Request::validate([
             'nom' => 'required',
-            'type' => 'required',
-            'quantite' => 'required',
+            'type' => 'required'
         ]);
 
          

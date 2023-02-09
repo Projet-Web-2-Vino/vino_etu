@@ -130,27 +130,13 @@
 
 
 
-
-<style>
-
-</style>
-
-<!--
-    /**
-    * Script qui gere l'ajout et la suppression d'une bouteille dans la carte
-    */
-
--->
 <script>
 
     window.addEventListener("load",function(){
 
-
-    //Détecter si url =  vue liste bouteille
-
-
-        //Gestionnaire d'evenement du bouton delete
-
+        /* Gestionnaire d'evenement du bouton delete
+         Gestion des modals par carte
+        */
         const modals = document.querySelectorAll("[data-modal]");
 
         modals.forEach(function (trigger) {
@@ -167,10 +153,10 @@
             exits.forEach(function (exit) {
             exit.addEventListener("click", function (event) {
                 event.preventDefault();
-                console.log(form)
-                console.log(event.target.dataset.action)
+                //console.log(form)
+                //console.log(event.target.dataset.action)
                 if(event.target.dataset.action == "supprimer"){
-                    console.log(form)
+                    //console.log(form)
                     form.submit();
                 }
                 modal.classList.remove("open");
