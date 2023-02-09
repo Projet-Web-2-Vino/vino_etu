@@ -139,13 +139,6 @@
 
         {{-- Section Action  --}}
         <div class="flex justify-end relative rounded-3xl  p-3 text-right">
-
-            <!-- logo SAQ-->
-            
-            
-            
-
-            
               <!-- zone edit bouteille-->
               
                 @if($info->url_saq)

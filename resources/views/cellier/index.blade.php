@@ -48,15 +48,15 @@
 
 
                             <!-- zone edit cellier-->
-                            <span class="inline-block text-xl text-gray-700 mr-2">
+                            <span class="inline-block  text-gray-700 mr-2">
                                 <a href="{{ route('cellier.edit', ['id' => $info->id]) }}">
                                 <i class="far fa-edit"></i></a>
                             </span>
                             <!-- zone delete cellier-->
-                            <span class="inline-block text-xl  text-gray-700">
+                            <span class="inline-block text-gray-700">
                                 <form action="{{ route('cellier.supprime', ['id' => $info->id]) }}" method="POST">
                                     @csrf
-                                    <button data-modal="modal-{{$info->id}}"><i class="fa-solid fa-trash"></i></button>
+                                    <button  data-modal="modal-{{$info->id}}"><i class="fa-solid fa-trash"></i></button>
                                 </form>
                             </span>
                         </div>
