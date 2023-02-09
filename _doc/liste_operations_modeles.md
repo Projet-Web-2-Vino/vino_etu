@@ -8,6 +8,10 @@
 1 Bouteille peut être dans plusieurs Cellier
 N:M
 
+1 Note peut etre donné a un bouteille
+1 Bouteille peut exiter san avoir un note
+0:1
+
 # Liste des opérations des modèles
 
 ## Usager
@@ -15,13 +19,10 @@ N:M
 Usager::get
 Usager::add
 
-
-##### À venir opération par l'admin
+##### opération par l'admin
    - Usager::delete
-   - Usager::update (est-ce nécessaire?)
 
 ## Cellier
-
 Cellier::getListe
 Cellier::getOne
 
@@ -36,6 +37,13 @@ Bouteille::getOne
 Bouteille::add
 Bouteille:update
 Bouteille:delete
+
+## Note
+Note::getOne
+
+Note::add
+Note:update
+Note:delete
 
 ## SAQ
 SAQ::update  // importation du catalogue par l'admin
