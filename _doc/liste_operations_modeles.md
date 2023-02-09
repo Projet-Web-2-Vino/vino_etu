@@ -15,10 +15,8 @@ N:M
 Usager::get
 Usager::add
 
-
-##### À venir opération par l'admin
+##### opération par l'admin
    - Usager::delete
-   - Usager::update (est-ce nécessaire?)
 
 ## Cellier
 
